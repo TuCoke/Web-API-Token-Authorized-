@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Goods" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Goods;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="GoodsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.CommentInfo" Member="CommentInfo">
+    <Type Name="CommentInfo">
+      <Column Name="Comment_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Conmment_Goodsid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Comment_Uid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment_Time" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="UserInfo_CommentInfo" Member="UserInfo" ThisKey="Comment_Uid" OtherKey="User_id" Type="UserInfo" IsForeignKey="true" />
+      <Association Name="GoodsInfo_CommentInfo" Member="GoodsInfo" ThisKey="Conmment_Goodsid" OtherKey="Goods_id" Type="GoodsInfo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserInfo" Member="UserInfo">
+    <Type Name="UserInfo">
+      <Column Name="User_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="User_Name" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Column Name="User_Pwd" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Column Name="User_Tel" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Association Name="UserInfo_CommentInfo" Member="CommentInfo" ThisKey="User_id" OtherKey="Comment_Uid" Type="CommentInfo" />
+      <Association Name="UserInfo_SellInfo" Member="SellInfo" ThisKey="User_id" OtherKey="Sell_UserId" Type="SellInfo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GoodsInfo" Member="GoodsInfo">
+    <Type Name="GoodsInfo">
+      <Column Name="Goods_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Goods_Name" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Column Name="Goods_Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Goods_Img" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Goods_Content" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Goods_Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Goods_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="GoodsInfo_CommentInfo" Member="CommentInfo" ThisKey="Goods_id" OtherKey="Conmment_Goodsid" Type="CommentInfo" />
+      <Association Name="GoodsInfo_SellInfo" Member="SellInfo" ThisKey="Goods_id" OtherKey="Sell_Goodsld" Type="SellInfo" />
+      <Association Name="GoodsType_GoodsInfo" Member="GoodsType" ThisKey="Goods_id" OtherKey="Type_id" Type="GoodsType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GoodsType" Member="GoodsType">
+    <Type Name="GoodsType">
+      <Column Name="Type_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Type_Name" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Column Name="Type_Content" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Association Name="GoodsType_GoodsInfo" Member="GoodsInfo" ThisKey="Type_id" OtherKey="Goods_id" Type="GoodsInfo" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SellInfo" Member="SellInfo">
+    <Type Name="SellInfo">
+      <Column Name="Sell_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Sell_Goodsld" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sell_GoodsName" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Column Name="Sell_Count" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Sell_Price" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Sell_GoodsTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Sell_UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="GoodsInfo_SellInfo" Member="GoodsInfo" ThisKey="Sell_Goodsld" OtherKey="Goods_id" Type="GoodsInfo" IsForeignKey="true" />
+      <Association Name="UserInfo_SellInfo" Member="UserInfo" ThisKey="Sell_UserId" OtherKey="User_id" Type="UserInfo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TokenInfo" Member="TokenInfo">
+    <Type Name="TokenInfo">
+      <Column Name="Tokenid" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Token" Type="System.String" DbType="NVarChar(36)" CanBeNull="true" />
+      <Column Name="Uid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpireData" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
