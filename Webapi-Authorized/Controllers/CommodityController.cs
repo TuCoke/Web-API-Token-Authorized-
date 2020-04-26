@@ -109,6 +109,25 @@ namespace Webapi_Authorized.Controllers
                 );
             return Json(result);
         }
+        public class user
+        {
+            public string Name { get; set; }
+        }
+        public class Names
+        {
+            public void Nm()
+            {
+                var a = "nihao";
+            }
+        }
+        public IHttpActionResult User()
+        {
+           
+           var p=new user()
+           {
+               Name=
+           }
+        }
 
     }
 }
